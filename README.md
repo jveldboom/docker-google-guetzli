@@ -1,11 +1,18 @@
 # Docker Google's Guetzli 
-Run Google's Guetzli image compression within Docker
+Run Google's Guetzli within Docker. 
+
+Visit https://github.com/google/guetzli for Guetzli's full documentation
 
 
 # Install
 - `git clone https://github.com/jveldboom/docker-google-guetzli.git`
 - `docker build -t guetzli .`
-- `docker run -rm -t guetzli -v $(PWD) input.png output.png`
+- `docker run -rm -t guetzli -v $(PWD):/tmp input.png output.png`
+
+# Run Examples
+- `docker run -v $(PWD):/tmp -t google --quality 85 ./samples/bees.png ./samples/bees-out.png`
+
+
 
 # TODO
 - Reduce container image size. Likely do not need full Ubuntu image
