@@ -7,7 +7,7 @@ Visit https://github.com/google/guetzli for Guetzli's full documentation
 # Install
 - `git clone https://github.com/jveldboom/docker-google-guetzli.git`
 - `docker build -t guetzli .`
-- `docker run -rm -t guetzli -v $(PWD):/tmp input.png output.png`
+- `docker run --rm -v $(PWD):/tmp guetzli input.png output.png`
 
 # Run Examples
 - `docker run -v $(PWD):/tmp -t google --quality 85 ./samples/bees.png ./samples/bees-out.png`
