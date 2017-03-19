@@ -7,6 +7,9 @@ RUN apt-get update && \
 
 RUN git clone https://github.com/google/guetzli.git
 
+# https://github.com/google/guetzli/issues/74
+RUN cd guetzli && git checkout 95ba421
+
 RUN cd guetzli && make
 
 WORKDIR /tmp
