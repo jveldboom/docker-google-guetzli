@@ -15,5 +15,5 @@ Original | Processed with 85%
 ![Original](./samples/rose.jpg)<br>219 KB  | ![Original](./samples/rose-out.png)<br> 103 KB
 
 # TODO
-- Reduce container image size. Likely do not need full Ubuntu image
+- <strike>Reduce container image size. Likely do not need full Ubuntu image</strike>
 - <strike>Add to Docker Hub for easier installation</strike>

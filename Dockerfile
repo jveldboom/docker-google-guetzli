@@ -1,14 +1,18 @@
-FROM ubuntu:latest
+FROM alpine:latest
 
 WORKDIR /opt/google
 
-RUN apt-get update && \
-    apt-get install -y git build-essential libpng-dev libgflags-dev
+RUN apk --no-cache add \
+    libpng-dev \
+    g++ \
+    git \
+    make
 
-RUN git clone https://github.com/google/guetzli.git
+ARG VERSION="v1.0.1"
 
-# https://github.com/google/guetzli/issues/74
-RUN cd guetzli && git checkout 95ba421
+RUN git clone https://github.com/google/guetzli.git \
+    --branch "${VERSION}" \
+    --depth 1
 
 RUN cd guetzli && make
 
