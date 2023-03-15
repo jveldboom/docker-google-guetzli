@@ -5,12 +5,14 @@ Visit https://github.com/google/guetzli for Guetzli's full documentation
 
 ## Usage
 ```sh
-docker run --rm -v $(PWD):/tmp jveldboom/google-guetzli input.jpg output.jpg
+docker --rm -v $(PWD):/tmp ghcr.io/jveldboom/docker-google-guetzli:latest \
+  input.jpg output.jpg
 ```
 
 ## Run Examples
 ```sh
-docker run --rm -v $(PWD):/tmp jveldboom/google-guetzli --quality 85 ./samples/bees.png ./samples/bees-out.png
+docker run --rm -v $(PWD):/tmp ghcr.io/jveldboom/docker-google-guetzli:latest \
+  --quality 85 ./samples/bees.png ./samples/bees-out.png
 ```
 
 Original | Processed with 85%
@@ -20,7 +22,7 @@ Original | Processed with 85%
 
 ## TODO
 - [ ] create pull request workflow
-- [ ] include dockerignore to reduce image size
+- [ ] include .dockerignore to reduce image size
 - [ ] see if we can reduce overall container size
 
 ```sh
