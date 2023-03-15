@@ -1,0 +1,44 @@
+---
+name: release
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Get next version
+        uses: jveldboom/action-conventional-versioning@v1
+        id: version
+
+      - name: Log in to the container registry
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build & push image
+        run: |
+          docker build . \
+            --tag ghcr.io/${GITHUB_REPOSITORY}:${{ steps.version.outputs.version }} \
+            --tag ghcr.io/${GITHUB_REPOSITORY}:latest
+
+          docker push --all-tags ghcr.io/${GITHUB_REPOSITORY}
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${{ steps.version.outputs.version }}" \
+            --generate-notes \
+            --target "${{ github.sha }}"
