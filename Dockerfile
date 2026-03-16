@@ -16,6 +16,6 @@ RUN git clone https://github.com/google/guetzli.git \
 
 RUN cd guetzli && make
 
-WORKDIR /tmp
+WORKDIR /data
 
 ENTRYPOINT ["/opt/google/guetzli/bin/Release/guetzli"]
