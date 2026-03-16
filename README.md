@@ -20,17 +20,22 @@ Original | Processed with 85%
 ![Original](./samples/bees.png)<br>177 KB | ![Original](./samples/bees-out.png)<br> 22 KB
 ![Original](./samples/rose.jpg)<br>219 KB  | ![Original](./samples/rose-out.png)<br> 103 KB
 
-## TODO
-- [ ] create pull request workflow
-- [ ] include .dockerignore to reduce image size
-- [ ] see if we can reduce overall container size
+## Performance
+Guetzli is intentionally slow — it tries many encodings to find the best compression. Expect processing to take **1 minute or more per megapixel**. It is best suited for batch or offline processing, not real-time use.
 
+It also requires a minimum of **300 MB of memory per megapixel** of input image.
+
+## Contributing
+
+### Build the image locally
 ```sh
-# dockerfile
-apk add --no-cache --virtual .build-deps
+# build the image locally
+docker build -t docker-google-guetzli .
 
-...
+# run locally built image
+docker run --rm -v $(pwd):/data docker-google-guetzli \
+  --quality 85 ./samples/bees.png ./samples/bees-out.png
 
-apk del --no-cache .build-deps
-rm -rf /var/tmp/* /tmp/* /opt/build
+# check size
+docker image ls docker-google-guetzli
 ```
