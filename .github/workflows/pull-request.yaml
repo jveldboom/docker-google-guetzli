@@ -18,17 +18,17 @@ jobs:
       - name: Run image
         run: |
           docker run --rm -v $(pwd):/data docker-google-guetzli \
-            --quality 85 ./samples/bees.png ./samples/bees-out.png
+            --quality 85 ./samples/bees.png ./samples/bees-out-pr.png
 
       - name: Validate output
         run: |
-          if [ ! -f ./samples/bees-out.png ]; then
+          if [ ! -f ./samples/bees-out-pr.png ]; then
             echo "ERROR: output file does not exist"
             exit 1
           fi
 
           input_size=$(stat -c%s ./samples/bees.png)
-          output_size=$(stat -c%s ./samples/bees-out.png)
+          output_size=$(stat -c%s ./samples/bees-out-pr.png)
 
           if [ "$output_size" -ge "$input_size" ]; then
             echo "ERROR: output file ($output_size bytes) is not smaller than input ($input_size bytes)"
