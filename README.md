@@ -5,13 +5,13 @@ Visit https://github.com/google/guetzli for Guetzli's full documentation
 
 ## Usage
 ```sh
-docker --rm -v $(PWD):/tmp ghcr.io/jveldboom/docker-google-guetzli:latest \
+docker run --rm -v $(PWD):/data ghcr.io/jveldboom/docker-google-guetzli:latest \
   input.jpg output.jpg
 ```
 
 ## Run Examples
 ```sh
-docker run --rm -v $(PWD):/tmp ghcr.io/jveldboom/docker-google-guetzli:latest \
+docker run --rm -v $(PWD):/data ghcr.io/jveldboom/docker-google-guetzli:latest \
   --quality 85 ./samples/bees.png ./samples/bees-out.png
 ```
 
