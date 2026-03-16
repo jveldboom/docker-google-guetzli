@@ -17,8 +17,8 @@ docker run --rm -v $(pwd):/data ghcr.io/jveldboom/docker-google-guetzli:latest \
 
 Original | Processed with 85%
 :------------: | :-------------:
-![Original](./samples/bees.png)<br>177 KB | ![Original](./samples/bees-out.jpg)<br> 22 KB
-![Original](./samples/rose.jpg)<br>219 KB  | ![Original](./samples/rose-out.jpg)<br> 103 KB
+![Original](./samples/bees.png)<br>177 KB | ![Processed](./samples/bees-out.jpg)<br> 22 KB
+![Original](./samples/rose.jpg)<br>219 KB  | ![Processed](./samples/rose-out.jpg)<br> 103 KB
 
 ## Performance
 Guetzli is intentionally slow — it tries many encodings to find the best compression. Expect processing to take **1 minute or more per megapixel**. It is best suited for batch or offline processing, not real-time use.
