@@ -9,8 +9,44 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      IMAGE_INPUT_FILE: ./samples/bees.png
+      IMAGE_OUTPUT_FILE: ./samples/bees-out-pr.jpg
     steps:
       - uses: actions/checkout@v6
 
       - name: Build image
-        run: docker build .
+        run: docker build -t docker-google-guetzli .
+
+      - name: Run image
+        run: |
+          docker run --rm -v $(pwd):/data docker-google-guetzli \
+            --quality 85 ${{ env.IMAGE_INPUT_FILE }} ${{ env.IMAGE_OUTPUT_FILE }}
+
+      - name: Validate output
+        run: |
+          if [ ! -f ${{ env.IMAGE_OUTPUT_FILE }} ]; then
+            echo "ERROR: output file does not exist"
+            exit 1
+          fi
+
+          if [ ! -s ${{ env.IMAGE_OUTPUT_FILE }} ]; then
+            echo "ERROR: output file is empty"
+            exit 1
+          fi
+
+          input_size=$(stat -c%s ${{ env.IMAGE_INPUT_FILE }})
+          output_size=$(stat -c%s ${{ env.IMAGE_OUTPUT_FILE }})
+
+          if [ "$output_size" -ge "$input_size" ]; then
+            echo "ERROR: output file ($output_size bytes) is not smaller than input ($input_size bytes)"
+            exit 1
+          fi
+
+          mime_type=$(file --mime-type -b ${{ env.IMAGE_OUTPUT_FILE }})
+          if [ "$mime_type" != "image/jpeg" ]; then
+            echo "ERROR: output file has unexpected MIME type: $mime_type (expected image/jpeg)"
+            exit 1
+          fi
+
+          echo "OK: $input_size bytes -> $output_size bytes"
